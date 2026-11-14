@@ -32,10 +32,10 @@ class PostingStorage:
         postings.append(posting)
         self.save(postings)
         return True
-    def search(self,skill:str | None , location : str | None = None) -> list[JobPosting]:
+    def search(self,skill:str | None = None , location : str | None = None) -> list[JobPosting]:
         postings = self.list()
         if skill:
             postings= [p for p in postings if p.matches_skills(skill)]
         if location:
-            postings=[p for p in postings if location.strip().lower() in p.location().lower()]
+            postings=[p for p in postings if location.strip().lower() in p.location.lower()]
         return postings
