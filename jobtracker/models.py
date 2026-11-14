@@ -10,7 +10,8 @@ class JobPosting:
     source_file: str
     added_at : str
     def __post_init__(self):
-        self.skills = [skill.strip().lower() for skill in self.skills].sort()
+        self.skills  =[skill.strip().lower() for skill in self.skills]
+        self.skills.sort()
         self.title =self.title.strip().lower()
         self.company = self.company.strip().lower()
         self.location = self.location.strip().lower()
@@ -18,7 +19,7 @@ class JobPosting:
         return f"{self.title}-{self.company}-{self.location}"
     def matches_skills(self, skill: str) -> bool:
         return skill.strip().lower() in self.skills
-    def to_dist(self) -> dict[str,any]:
+    def to_dict(self) -> dict[str,any]:
         return {
             "title": self.title,
             "company": self.company,
@@ -29,7 +30,7 @@ class JobPosting:
             "added_at": self.added_at
         }
     @classmethod
-    def from_dict(cls, data: dict[str, any]) -> 'JobPosting':
+    def from_dict(cls, data: dict[str,Any]) -> 'JobPosting':
         return cls(
             title=data.get("title", ""),
             company=data.get("company", ""),
