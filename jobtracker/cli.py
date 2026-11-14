@@ -21,10 +21,17 @@ def handle_list(args : argparse.Namespace) -> int:
         store = PostingStorage(args.store)
         posting = store.all()
 
-        for p in posting:
-            skills = ",".join(p.skills) if p.skills else "None"
-            print(f"• {p.title.title()} @ {p.company.title()} [{p.location.title()}]")
-            print(f"  Skills: {skills}\n")
+        if not postings:
+            print("No job postings found.")
+            return 0
+        if args.json:
+            data = [p.to_dict() for p in postings]
+            print(json.dumps(data, indent=2))
+        else:
+            for p in postings:
+                skills = ", ".join(p.skills) if p.skills else "None"
+                print(f"• {p.title.title()} @ {p.company.title()} [{p.location.title()}]")
+                print(f"  Skills: {skills}\n")
         return 0
 
 def build_parser()-> argparse.ArgumentParser:

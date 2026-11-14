@@ -7,7 +7,7 @@ class PostingStorage:
     def __init__(self, path:Path):
         self.path =path
         self.path.parent.mkdir(parents=True,exist_ok=True)
-    def list(self) ->list[JobPosting]:
+    def _list(self) ->list[JobPosting]:
         if not self.path.exists():
             return []
         try:
@@ -23,9 +23,9 @@ class PostingStorage:
         except OSError as e:
             raise StorageError(f"Failed to put into the storage: {self.path}") from e
     def all(self) -> list[JobPosting]:
-        return self.list()
+        return self._list()
     def add(self,posting: JobPosting) -> bool:
-        postings=self.list()
+        postings=self._list()
         for post in postings:
             if post.key() == posting.key():
                 return False
@@ -33,7 +33,7 @@ class PostingStorage:
         self.save(postings)
         return True
     def search(self,skill:str | None = None , location : str | None = None) -> list[JobPosting]:
-        postings = self.list()
+        postings = self._list()
         if skill:
             postings= [p for p in postings if p.matches_skills(skill)]
         if location:
