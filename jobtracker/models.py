@@ -1,11 +1,11 @@
 from dataclasses import dataclass
+from typing import Any
 
 @dataclass
 class JobPosting:
     title: str
     company: str
     location: str
-    description: str
     skills: list[str]
     source_file: str
     added_at : str
@@ -24,7 +24,6 @@ class JobPosting:
             "title": self.title,
             "company": self.company,
             "location": self.location,
-            "description": self.description,
             "skills": self.skills,
             "source_file": self.source_file,
             "added_at": self.added_at
@@ -35,7 +34,6 @@ class JobPosting:
             title=data.get("title", ""),
             company=data.get("company", ""),
             location=data.get("location", ""),
-            description=data.get("description", ""),
             skills=data.get("skills", []),
             source_file=data.get("source_file", ""),
             added_at=data.get("added_at", "")
