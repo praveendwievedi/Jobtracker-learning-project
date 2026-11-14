@@ -39,9 +39,9 @@ def handle_search( args: argparse.Namespace) -> int:
     if not (args.skills or args.location or args.company):
         print("Error: At least one filter (--skill, --location, or --company) is required.", file=sys.stderr)
         return 1
-    postings= store.search(skill=args.skills,location=args.location,comapny=args.company)
+    postings= store.search(skill=args.skills,location=args.location,company=args.company)
 
-    if postings:
+    if not postings:
         print("No job posting found. ")
         return 0
     if args.json:
@@ -73,7 +73,7 @@ def build_parser()-> argparse.ArgumentParser:
     parser_list.set_defaults(handler= handle_list)
 
     parser_search=subparser.add_parser("search", help="Search the Jobs based on skills and location")
-    parser_search.add_argument("--skills", type=str, help="Filter by skills")
+    parser_search.add_argument("--skill", type=str, help="Filter by skills")
     parser_search.add_argument("--location" , type=str, help="Filter by locaiton")
     parser_search.add_argument("--company" , type=str, help="Filter by company")
     parser_search.add_argument("--store",type= Path,default=Path("data/postings.json"), help="Path to JSON store")
@@ -96,5 +96,5 @@ def main(argv: str | None =None) -> int :
         print(f"Error: {e}", file=sys.stderr)
         return 1
 
-if __name__ == "__main__":
+if __name__== "__main__":
     sys.exit(main())

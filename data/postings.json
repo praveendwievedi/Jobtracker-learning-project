@@ -1,0 +1,15 @@
+[
+  {
+    "title": "senior python engineer",
+    "company": "acme corp",
+    "location": "bengaluru",
+    "skills": [
+      "docker",
+      "kubernetes",
+      "python",
+      "rest api"
+    ],
+    "source_file": "/tmp/test_jd.txt",
+    "added_at": "1794675057.9575295"
+  }
+]
